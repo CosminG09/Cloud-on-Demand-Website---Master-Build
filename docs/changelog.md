@@ -55,3 +55,11 @@ Each entry must include: **Date, Section, Decision, Made by, Approved by (Cosmin
 - **Made by**: Assistant  
 - **Approved by**: Cosmin  
 - **Notes**: Contains team roles, objectives, rules, and workflow.  
+
+[2025-09-04] Step 4 — MDX runtime + brand fonts + typography
+- Added MDX runtime (next-mdx-remote/rsc) with remark-gfm, rehype-slug, autolink-headings
+- Refactored loader: list uses front-matter; detail compiles MDX ? React
+- Wired local brand fonts via next/font/local (Aileron 400/700, Audiowide 400)
+- Tailwind Typography enabled; added `.font-display` utility
+- Verified: /insights/primul renders JSX block; H1 uses Audiowide; body uses Aileron
+- Safety: robots.txt still Disallow; sitemap is stubbed (update before launch)
