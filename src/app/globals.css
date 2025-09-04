@@ -1,0 +1,16 @@
+﻿@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Small base tweaks */
+html { scroll-behavior: smooth; }
+body { font-feature-settings: "rlig" 1, "calt" 1; }
+@layer utilities {
+  .font-display {
+    font-family: var(--font-brand-display), var(--font-brand-sans), system-ui, sans-serif;
+  }
+}
+/* Force display font on elements using the class */
+.font-display {
+  font-family: var(--font-brand-display), var(--font-brand-sans), system-ui, sans-serif !important;
+}
