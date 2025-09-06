@@ -8,26 +8,10 @@
 html { scroll-behavior: smooth; }
 body { font-feature-settings: "rlig" 1, "calt" 1; }
 
-/* Display font utility (matches next/font/local variables) */
-@layer utilities {
-  .font-display {
-    font-family: var(--font-brand-display), var(--font-brand-sans), system-ui, sans-serif;
-  }
-
-  /* Section heading top spacing (utility for JSX pages) */
-  .section-head { @apply mt-8; }
-}
-@screen md {
-  .section-head { @apply mt-10; } /* responsive handled via @screen, not md: in @apply */
-}
-
-/* Force display font when explicitly requested */
-.font-display {
-  font-family: var(--font-brand-display), var(--font-brand-sans), system-ui, sans-serif !important;
-}
-
 /* =========================================================
    Design Tokens (HSL components) — LIGHT THEME
+   Note: we expose both our brand tokens and shadcn-style
+   primary/secondary/destructive for maximum compatibility.
 ========================================================= */
 :root {
   /* Radii (shadcn also reads --radius) */
@@ -55,9 +39,9 @@ body { font-feature-settings: "rlig" 1, "calt" 1; }
   --ring: 217 91% 60%;
 
   /* Brand (aligned with guidelines) */
-  --brand-primary: 219 100% 29%;
+  --brand-primary: 219 100% 29%;            /* #003594 deep blue */
   --brand-primary-foreground: 0 0% 100%;
-  --brand-secondary: 289 61% 32%;
+  --brand-secondary: 289 61% 32%;           /* #702082 purple */
   --brand-secondary-foreground: 0 0% 100%;
 
   /* shadcn-compatible aliases */
@@ -67,11 +51,11 @@ body { font-feature-settings: "rlig" 1, "calt" 1; }
   --secondary-foreground: var(--brand-secondary-foreground);
 
   /* States */
-  --accent: 19 100% 50%;
+  --accent: 19 100% 50%;                    /* #FE5000 vivid orange */
   --accent-foreground: 0 0% 100%;
   --success: 142 71% 45%;
   --success-foreground: 0 0% 100%;
-  --warning: 46 100% 48%;
+  --warning: 46 100% 48%;                   /* #F6BE00 rich yellow */
   --warning-foreground: 0 0% 10%;
   --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 100%;
@@ -87,10 +71,19 @@ body { font-feature-settings: "rlig" 1, "calt" 1; }
   --fg-muted: var(--muted-foreground);
   --border-subtle: var(--border);
   --border-strong: 215 16% 27%;
+
+  /* Animation tokens (D#3) */
+  --anim-fast: 150ms;
+  --anim-normal: 300ms;
+  --anim-slow: 600ms;
+  --ease-standard: cubic-bezier(.2,.8,.2,1);
+  --ease-emphasized: cubic-bezier(.2,0,0,1);
 }
 
 /* =========================================================
-   DARK THEME — supports .dark or [data-theme="dark"]
+   DARK THEME — supports either:
+   1) <html class="dark">  OR
+   2) <html data-theme="dark">
 ========================================================= */
 :root.dark,
 [data-theme="dark"] {
@@ -142,22 +135,6 @@ body { font-feature-settings: "rlig" 1, "calt" 1; }
   }
 }
 
-/* ----------------------------
-   Animation keyframes (names only)
------------------------------ */
-@keyframes brand-pulse { from { opacity: .85; } to { opacity: 1; } }
-@keyframes brand-fade-in { from { opacity: 0; } to { opacity: 1; } }
-@keyframes brand-sync { from { transform: translateY(2px); } to { transform: translateY(0); } }
-
-/* Honor reduced motion user preference */
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-
 /* ===========================
    Base Typography Rules
    - Audiowide only on H1/H2
@@ -203,7 +180,57 @@ body { font-feature-settings: "rlig" 1, "calt" 1; }
 }
 
 /* ===========================
+   Utilities
+   - display font helper
+   - section heading spacing
+   - semantic animation helpers (D#3)
+=========================== */
+@layer utilities {
+  /* Display font utility (matches next/font/local variables) */
+  .font-display {
+    font-family: var(--font-brand-display), var(--font-brand-sans), system-ui, sans-serif;
+  }
+
+  /* Section heading top spacing (utility for JSX pages) */
+  .section-head { @apply mt-8; }
+
+  /* Semantic animation utilities (use with motion-safe:) */
+  .anim-fade {
+    animation: brandFadeIn var(--anim-normal) var(--ease-emphasized) forwards;
+  }
+  .anim-pulse {
+    animation: brandPulse var(--anim-slow) var(--ease-standard) infinite alternate;
+  }
+  .anim-sync {
+    animation: brandSync 600ms var(--ease-standard) infinite alternate;
+  }
+}
+/* responsive variant for .section-head — use @screen, not md: in @apply */
+@screen md {
+  .section-head { @apply mt-10; }
+}
+
+/* Force display font when explicitly requested (non-layer to increase priority) */
+.font-display {
+  font-family: var(--font-brand-display), var(--font-brand-sans), system-ui, sans-serif !important;
+}
+
+/* Global kill-switch for any subtree (D#3) */
+[data-anim="off"] * { animation: none !important; }
+
+/* Honor reduced motion user preference (complements motion-safe:) */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ===========================
    Prose spacing helpers (MDX)
+   - automatic top margin before H2/H3 in long-form content
+   - keep Audiowide on headings inside .prose
 =========================== */
 @layer components {
   /* Keep Audiowide on headings inside .prose without using @apply */

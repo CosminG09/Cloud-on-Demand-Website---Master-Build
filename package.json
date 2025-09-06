@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "lint:css": "stylelint \"src/**/*.{css,pcss}\""
+    "lint:css": "stylelint \"src/**/*.{css,pcss}\"",
+    "ladle": "ladle"
   },
   "dependencies": {
     "@next/mdx": "15.5.2",
@@ -31,6 +32,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@ladle/react": "^5.0.3",
     "@tailwindcss/postcss": "^4",
     "@tailwindcss/typography": "0.5.16",
     "@types/node": "^20",

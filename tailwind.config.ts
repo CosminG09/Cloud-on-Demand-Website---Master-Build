@@ -1,18 +1,29 @@
 ﻿// tailwind.config.ts
+// ---------------------------------------------------------
+// D#1 tokens + D#2 type scale (preserved) + D#3 animations
+// Adds GPU-safe brand keyframes and utilities that you can
+// use with Tailwind's motion-safe: / motion-reduce: variants.
+// ---------------------------------------------------------
+
 import type { Config } from "tailwindcss";
 import { fontFamily } from "tailwindcss/defaultTheme";
 import typography from "@tailwindcss/typography";
 import animate from "tailwindcss-animate";
 
 const config: Config = {
+  // Support both toggles: <html class="dark"> and <html data-theme="dark">
   darkMode: ["class", '[data-theme="dark"]'],
+
+  // Scan app, components, MDX content, and Ladle stories
   content: [
     "./src/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
     "./content/**/*.{md,mdx}",
     "./stories/**/*.{tsx,mdx}",
   ],
+
   theme: {
+    // Centered container with comfortable paddings
     container: {
       center: true,
       padding: {
@@ -25,7 +36,9 @@ const config: Config = {
       },
       screens: { sm: "640px", md: "768px", lg: "1024px", xl: "1280px", "2xl": "1440px" },
     },
+
     extend: {
+      // ================= Colors mapped to CSS variables (D#1) =================
       colors: {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
@@ -35,12 +48,16 @@ const config: Config = {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
+
+        // Direct brand access (optional helpers)
         brand: {
           primary: "hsl(var(--brand-primary))",
           "primary-foreground": "hsl(var(--brand-primary-foreground))",
           secondary: "hsl(var(--brand-secondary))",
           "secondary-foreground": "hsl(var(--brand-secondary-foreground))",
         },
+
+        // shadcn/ui aliases
         accent: { DEFAULT: "hsl(var(--accent))", foreground: "hsl(var(--accent-foreground))" },
         success: { DEFAULT: "hsl(var(--success))", foreground: "hsl(var(--success-foreground))" },
         warning: { DEFAULT: "hsl(var(--warning))", foreground: "hsl(var(--warning-foreground))" },
@@ -50,12 +67,17 @@ const config: Config = {
         secondary: "hsl(var(--secondary))",
         "secondary-foreground": "hsl(var(--secondary-foreground))",
       },
+
+      // ================= Typography (D#2) =================
       fontFamily: {
+        // Aileron default body; Audiowide available via .font-display
         sans: ["var(--font-brand-sans)", ...fontFamily.sans],
         display: ["var(--font-brand-display)", "var(--font-brand-sans)", ...fontFamily.sans],
       },
       fontSize: {
+        // Display sizes (Audiowide applied via base rules in globals.css)
         "display-1": ["clamp(2.25rem, 2.5vw + 1rem, 3rem)", { lineHeight: "1.1", letterSpacing: "-0.02em" }],
+        // NOTE: you requested tighter H2 → kept -0.005em
         "display-2": ["clamp(1.875rem, 2vw + 0.75rem, 2.25rem)", { lineHeight: "1.15", letterSpacing: "-0.005em" }],
         "h3": ["1.5rem",  { lineHeight: "1.25", letterSpacing: "-0.01em" }],
         "h4": ["1.25rem", { lineHeight: "1.3" }],
@@ -64,6 +86,8 @@ const config: Config = {
         "small":   ["0.875rem", { lineHeight: "1.6" }],
         "caption": ["0.8125rem",{ lineHeight: "1.5" }],
       },
+
+      // ================= Radii/Shadows/Spacing (D#1) =================
       borderRadius: {
         sm: "var(--radius-sm)",
         md: "var(--radius-md)",
@@ -77,6 +101,8 @@ const config: Config = {
         "soft-lg": "var(--shadow-lg)",
       },
       spacing: { 13: "3.25rem", 15: "3.75rem", 18: "4.5rem", 22: "5.5rem", 26: "6.5rem" },
+
+      // Tailwind Typography defaults (force display font on h1/h2 in prose)
       typography: {
         DEFAULT: {
           css: {
@@ -86,8 +112,33 @@ const config: Config = {
           },
         },
       },
+
+      // ==================== Animations (D#3) ====================
+      // 1) GPU-safe keyframes (opacity/transform only)
+      keyframes: {
+        brandPulse: {
+          "0%": { opacity: "0.85" },
+          "100%": { opacity: "1" },
+        },
+        brandFadeIn: {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
+        },
+        brandSync: {
+          "0%": { transform: "translateY(2px)" },
+          "100%": { transform: "translateY(0)" },
+        },
+      },
+      // 2) Utilities (tree-shaken). Use with motion-safe: to honor reduced motion.
+      animation: {
+        "brand-pulse": "brandPulse 1.5s ease-in-out infinite alternate",
+        "brand-fade-in": "brandFadeIn 300ms ease-out forwards",
+        "brand-sync": "brandSync 600ms ease-out infinite alternate",
+      },
     },
   },
+
+  // Plugins: prose styles, and small animation helpers used by shadcn/ui
   plugins: [typography, animate],
 };
 
