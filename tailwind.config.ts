@@ -5,29 +5,14 @@ import typography from "@tailwindcss/typography";
 import animate from "tailwindcss-animate";
 
 const config: Config = {
-  /**
-   * Dark mode can be triggered by:
-   *  - <html class="dark">
-   *  - <html data-theme="dark">
-   */
   darkMode: ["class", '[data-theme="dark"]'],
-
-  /**
-   * Tailwind should scan React source, MDX content,
-   * shared components, and (soon) Ladle stories.
-   */
   content: [
     "./src/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
     "./content/**/*.{md,mdx}",
     "./stories/**/*.{tsx,mdx}",
   ],
-
   theme: {
-    /**
-     * Container widths for our 12-column layout strategy.
-     * (Grids live at component level; container just centers content.)
-     */
     container: {
       center: true,
       padding: {
@@ -38,93 +23,37 @@ const config: Config = {
         xl: "2rem",
         "2xl": "2rem",
       },
-      screens: {
-        sm: "640px",
-        md: "768px",
-        lg: "1024px",
-        xl: "1280px",
-        "2xl": "1440px",
-      },
+      screens: { sm: "640px", md: "768px", lg: "1024px", xl: "1280px", "2xl": "1440px" },
     },
-
     extend: {
-      /**
-       * Colors are mapped to CSS variables defined in src/app/globals.css.
-       * We expose both our 'brand.*' roles and shadcn aliases (primary/secondary).
-       */
       colors: {
-        // Core canvas & text
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
-
-        // Surfaces
-        muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
-        },
-        card: {
-          DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
-        },
-        popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
-        },
-
-        // Lines & focus
+        muted: { DEFAULT: "hsl(var(--muted))", foreground: "hsl(var(--muted-foreground))" },
+        card: { DEFAULT: "hsl(var(--card))", foreground: "hsl(var(--card-foreground))" },
+        popover: { DEFAULT: "hsl(var(--popover))", foreground: "hsl(var(--popover-foreground))" },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
-
-        // Brand roles (semantic)
         brand: {
           primary: "hsl(var(--brand-primary))",
           "primary-foreground": "hsl(var(--brand-primary-foreground))",
           secondary: "hsl(var(--brand-secondary))",
           "secondary-foreground": "hsl(var(--brand-secondary-foreground))",
         },
-
-        // State roles
-        accent: {
-          DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
-        },
-        success: {
-          DEFAULT: "hsl(var(--success))",
-          foreground: "hsl(var(--success-foreground))",
-        },
-        warning: {
-          DEFAULT: "hsl(var(--warning))",
-          foreground: "hsl(var(--warning-foreground))",
-        },
-        destructive: {
-          DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
-        },
-
-        /**
-         * shadcn/ui expects these aliases.
-         * They point at our brand tokens so existing components 'just work'.
-         */
+        accent: { DEFAULT: "hsl(var(--accent))", foreground: "hsl(var(--accent-foreground))" },
+        success: { DEFAULT: "hsl(var(--success))", foreground: "hsl(var(--success-foreground))" },
+        warning: { DEFAULT: "hsl(var(--warning))", foreground: "hsl(var(--warning-foreground))" },
+        destructive: { DEFAULT: "hsl(var(--destructive))", foreground: "hsl(var(--destructive-foreground))" },
         primary: "hsl(var(--primary))",
         "primary-foreground": "hsl(var(--primary-foreground))",
         secondary: "hsl(var(--secondary))",
         "secondary-foreground": "hsl(var(--secondary-foreground))",
       },
-
-      /**
-       * Fonts — hook Tailwind to next/font/local variables.
-       * - Aileron (body) via --font-brand-sans
-       * - Audiowide (display) via --font-brand-display
-       */
       fontFamily: {
         sans: ["var(--font-brand-sans)", ...fontFamily.sans],
         display: ["var(--font-brand-display)", "var(--font-brand-sans)", ...fontFamily.sans],
       },
-
-      /**
-       * Radii — brand default is 2xl (16px). Others are tokenized for consistency.
-       */
       borderRadius: {
         sm: "var(--radius-sm)",
         md: "var(--radius-md)",
@@ -132,33 +61,12 @@ const config: Config = {
         "2xl": "var(--radius-2xl)",
         DEFAULT: "var(--radius-2xl)",
       },
-
-      /**
-       * Soft elevations for a calm, enterprise feel.
-       */
       boxShadow: {
         "soft-sm": "var(--shadow-sm)",
         "soft-md": "var(--shadow-md)",
         "soft-lg": "var(--shadow-lg)",
       },
-
-      /**
-       * Spacing — a few extras to support section rhythm.
-       * (Tailwind defaults remain available.)
-       */
-      spacing: {
-        13: "3.25rem", // 52px
-        15: "3.75rem", // 60px
-        18: "4.5rem",  // 72px
-        22: "5.5rem",  // 88px
-        26: "6.5rem",  // 104px
-      },
-
-      /**
-       * Typography plugin defaults:
-       * - readable text width
-       * - Audiowide on H1/H2 only (display font)
-       */
+      spacing: { 13: "3.25rem", 15: "3.75rem", 18: "4.5rem", 22: "5.5rem", 26: "6.5rem" },
       typography: {
         DEFAULT: {
           css: {
@@ -170,12 +78,6 @@ const config: Config = {
       },
     },
   },
-
-  /**
-   * Plugins:
-   *  - @tailwindcss/typography for MDX prose areas
-   *  - tailwindcss-animate for animation utilities (Deliverable #3)
-   */
   plugins: [typography, animate],
 };
 

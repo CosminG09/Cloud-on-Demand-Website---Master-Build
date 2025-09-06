@@ -49,20 +49,19 @@ body { font-feature-settings: "rlig" 1, "calt" 1; }
   --input: 214 32% 91%;
   --ring: 217 91% 60%;
 
-  /* Brand – align to guidelines */
+  /* Brand (aligned with guidelines) */
   --brand-primary: 219 100% 29%;            /* #003594 deep blue */
   --brand-primary-foreground: 0 0% 100%;
   --brand-secondary: 289 61% 32%;           /* #702082 purple */
   --brand-secondary-foreground: 0 0% 100%;
-  
-  /* Map shadcn aliases to brand (unchanged mapping) */
+
+  /* shadcn-compatible aliases */
   --primary: var(--brand-primary);
   --primary-foreground: var(--brand-primary-foreground);
   --secondary: var(--brand-secondary);
   --secondary-foreground: var(--brand-secondary-foreground);
 
-
-  /* Utility/state alignment to guidelines */
+  /* States */
   --accent: 19 100% 50%;                    /* #FE5000 vivid orange */
   --accent-foreground: 0 0% 100%;
   --success: 142 71% 45%;
@@ -106,7 +105,7 @@ body { font-feature-settings: "rlig" 1, "calt" 1; }
   --input: 217 33% 17%;
   --ring: 217 91% 70%;
 
-  /* Brand on dark – same hues, lifted lightness for contrast */
+  /* keep brand hues; adjust lightness for contrast */
   --brand-primary: 219 100% 60%;
   --brand-primary-foreground: 0 0% 100%;
   --brand-secondary: 289 61% 60%;
@@ -118,7 +117,6 @@ body { font-feature-settings: "rlig" 1, "calt" 1; }
   --secondary: var(--brand-secondary);
   --secondary-foreground: var(--brand-secondary-foreground);
 
-  /* Utility on dark */
   --accent: 19 100% 55%;
   --accent-foreground: 0 0% 100%;
   --success: 142 60% 45%;
@@ -133,9 +131,7 @@ body { font-feature-settings: "rlig" 1, "calt" 1; }
    Base element wiring
 ----------------------------- */
 @layer base {
-  * {
-    @apply border-border;
-  }
+  * { @apply border-border; }
   body {
     @apply bg-background text-foreground;
     -webkit-font-smoothing: antialiased;
@@ -145,7 +141,6 @@ body { font-feature-settings: "rlig" 1, "calt" 1; }
 
 /* ----------------------------
    Animation keyframes (names only)
-   Utility classes are added in Deliverable #3.
 ----------------------------- */
 @keyframes brand-pulse { from { opacity: .85; } to { opacity: 1; } }
 @keyframes brand-fade-in { from { opacity: 0; } to { opacity: 1; } }
