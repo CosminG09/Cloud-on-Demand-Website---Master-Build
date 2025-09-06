@@ -54,6 +54,16 @@ const config: Config = {
         sans: ["var(--font-brand-sans)", ...fontFamily.sans],
         display: ["var(--font-brand-display)", "var(--font-brand-sans)", ...fontFamily.sans],
       },
+      fontSize: {
+        "display-1": ["clamp(2.25rem, 2.5vw + 1rem, 3rem)", { lineHeight: "1.1", letterSpacing: "-0.02em" }],
+        "display-2": ["clamp(1.875rem, 2vw + 0.75rem, 2.25rem)", { lineHeight: "1.15", letterSpacing: "-0.005em" }],
+        "h3": ["1.5rem",  { lineHeight: "1.25", letterSpacing: "-0.01em" }],
+        "h4": ["1.25rem", { lineHeight: "1.3" }],
+        "body-lg": ["1.125rem", { lineHeight: "1.7" }],
+        "body":    ["1rem",     { lineHeight: "1.65" }],
+        "small":   ["0.875rem", { lineHeight: "1.6" }],
+        "caption": ["0.8125rem",{ lineHeight: "1.5" }],
+      },
       borderRadius: {
         sm: "var(--radius-sm)",
         md: "var(--radius-md)",

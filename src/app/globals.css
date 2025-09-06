@@ -13,7 +13,14 @@ body { font-feature-settings: "rlig" 1, "calt" 1; }
   .font-display {
     font-family: var(--font-brand-display), var(--font-brand-sans), system-ui, sans-serif;
   }
+
+  /* Section heading top spacing (utility for JSX pages) */
+  .section-head { @apply mt-8; }
 }
+@screen md {
+  .section-head { @apply mt-10; } /* responsive handled via @screen, not md: in @apply */
+}
+
 /* Force display font when explicitly requested */
 .font-display {
   font-family: var(--font-brand-display), var(--font-brand-sans), system-ui, sans-serif !important;
@@ -21,8 +28,6 @@ body { font-feature-settings: "rlig" 1, "calt" 1; }
 
 /* =========================================================
    Design Tokens (HSL components) — LIGHT THEME
-   Note: we expose both our brand tokens and shadcn-style
-   primary/secondary/destructive for maximum compatibility.
 ========================================================= */
 :root {
   /* Radii (shadcn also reads --radius) */
@@ -50,9 +55,9 @@ body { font-feature-settings: "rlig" 1, "calt" 1; }
   --ring: 217 91% 60%;
 
   /* Brand (aligned with guidelines) */
-  --brand-primary: 219 100% 29%;            /* #003594 deep blue */
+  --brand-primary: 219 100% 29%;
   --brand-primary-foreground: 0 0% 100%;
-  --brand-secondary: 289 61% 32%;           /* #702082 purple */
+  --brand-secondary: 289 61% 32%;
   --brand-secondary-foreground: 0 0% 100%;
 
   /* shadcn-compatible aliases */
@@ -62,11 +67,11 @@ body { font-feature-settings: "rlig" 1, "calt" 1; }
   --secondary-foreground: var(--brand-secondary-foreground);
 
   /* States */
-  --accent: 19 100% 50%;                    /* #FE5000 vivid orange */
+  --accent: 19 100% 50%;
   --accent-foreground: 0 0% 100%;
   --success: 142 71% 45%;
   --success-foreground: 0 0% 100%;
-  --warning: 46 100% 48%;                   /* #F6BE00 rich yellow */
+  --warning: 46 100% 48%;
   --warning-foreground: 0 0% 10%;
   --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 100%;
@@ -85,9 +90,7 @@ body { font-feature-settings: "rlig" 1, "calt" 1; }
 }
 
 /* =========================================================
-   DARK THEME — supports either:
-   1) <html class="dark">  OR
-   2) <html data-theme="dark">
+   DARK THEME — supports .dark or [data-theme="dark"]
 ========================================================= */
 :root.dark,
 [data-theme="dark"] {
@@ -153,4 +156,62 @@ body { font-feature-settings: "rlig" 1, "calt" 1; }
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* ===========================
+   Base Typography Rules
+   - Audiowide only on H1/H2
+   - Aileron default on body (from layout.tsx)
+   - MDX prose colors follow tokens
+=========================== */
+@layer base {
+  h1 { @apply font-display text-display-1; }
+  h2 { @apply font-display text-display-2; }
+  h3 { @apply text-h3 font-semibold; }
+  h4 { @apply text-h4 font-semibold; }
+  p  { @apply text-body; }
+  .lead { @apply text-body-lg text-muted-foreground; }
+
+  /* Prose token colors (Tailwind Typography) */
+  .prose {
+    --tw-prose-body: hsl(var(--foreground));
+    --tw-prose-headings: hsl(var(--foreground));
+    --tw-prose-links: hsl(var(--brand-primary));
+    --tw-prose-bold: hsl(var(--foreground));
+    --tw-prose-quotes: hsl(var(--foreground));
+    --tw-prose-counters: hsl(var(--muted-foreground));
+    --tw-prose-bullets: hsl(var(--muted-foreground));
+    --tw-prose-hr: hsl(var(--border));
+    --tw-prose-code: hsl(var(--foreground));
+    --tw-prose-th-borders: hsl(var(--border));
+    --tw-prose-td-borders: hsl(var(--border));
+  }
+  .dark .prose,
+  [data-theme="dark"] .prose {
+    --tw-prose-body: hsl(var(--foreground));
+    --tw-prose-headings: hsl(var(--foreground));
+    --tw-prose-links: hsl(var(--brand-primary));
+    --tw-prose-bold: hsl(var(--foreground));
+    --tw-prose-quotes: hsl(var(--foreground));
+    --tw-prose-counters: hsl(var(--muted-foreground));
+    --tw-prose-bullets: hsl(var(--muted-foreground));
+    --tw-prose-hr: hsl(var(--border));
+    --tw-prose-code: hsl(var(--foreground));
+    --tw-prose-th-borders: hsl(var(--border));
+    --tw-prose-td-borders: hsl(var(--border));
+  }
+}
+
+/* ===========================
+   Prose spacing helpers (MDX)
+=========================== */
+@layer components {
+  /* Keep Audiowide on headings inside .prose without using @apply */
+  .prose :where(h1, h2) {
+    font-family: var(--font-brand-display), var(--font-brand-sans), system-ui, sans-serif;
+  }
+
+  /* Add breathing room before sections in long-form content */
+  .prose :where(h2, h3) { @apply mt-10; }
+  .prose :where(h2, h3):first-child { @apply mt-0; }
 }
