@@ -63,3 +63,9 @@ Each entry must include: **Date, Section, Decision, Made by, Approved by (Cosmin
 - Tailwind Typography enabled; added `.font-display` utility
 - Verified: /insights/primul renders JSX block; H1 uses Audiowide; body uses Aileron
 - Safety: robots.txt still Disallow; sitemap is stubbed (update before launch)
+
+[2025-09-04] Step 5 — UI kit (shadcn/ui)
+- Initialized shadcn/ui
+- Added base components: Button, Card, Input, Label
+- Tailwind tokens (colors, radius) + typography + tailwindcss-animate
+- UI demo route: /ui-demo (Card, Inputs, Button)
