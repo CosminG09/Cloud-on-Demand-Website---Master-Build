@@ -1,0 +1,13 @@
+{
+    "css.lint.unknownAtRules": "ignore",
+    "scss.lint.unknownAtRules": "ignore",
+    "less.lint.unknownAtRules": "ignore",
+  
+    // keep CSS validation on, just ignore Tailwind/PostCSS at-rules
+    // If you still see noise, you can hard-disable with: "css.validate": false
+  
+    "tailwindCSS.experimental.configFile": "tailwind.config.ts",
+    "tailwindCSS.emmetCompletions": true,
+    "editor.quickSuggestions": { "strings": true }
+  }
+  

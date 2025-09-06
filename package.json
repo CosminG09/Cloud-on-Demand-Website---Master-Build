@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "lint:css": "stylelint \"src/**/*.{css,pcss}\""
   },
   "dependencies": {
     "@next/mdx": "15.5.2",
@@ -39,6 +40,9 @@
     "eslint": "8.57.0",
     "eslint-config-next": "13.5.11",
     "postcss": "8.4.47",
+    "stylelint": "^16.23.1",
+    "stylelint-config-standard": "^39.0.0",
+    "stylelint-config-tailwindcss": "^1.0.0",
     "tailwindcss": "3.4.10",
     "tailwindcss-animate": "^1.0.7",
     "typescript": "^5"
