@@ -44,6 +44,16 @@ body { font-feature-settings: "rlig" 1, "calt" 1; }
   --brand-secondary: 289 61% 32%;           /* #702082 purple */
   --brand-secondary-foreground: 0 0% 100%;
 
+  /* We map services to your live color cues */
+  --service-m365: var(--brand-primary);         /* Deep blue */
+  --service-power: var(--warning);              /* Warm yellow (Power Platform tile) */
+  --service-azure: var(--brand-secondary);      /* Purple (Azure tile) */
+  --service-dynamics: var(--success);           /* Green (Dynamics 365 cue) */
+
+  /* Optional contrasts if you ever need text-on-badge */
+  --service-contrast: 0 0% 100%;
+
+
   /* shadcn-compatible aliases */
   --primary: var(--brand-primary);
   --primary-foreground: var(--brand-primary-foreground);
@@ -106,6 +116,13 @@ body { font-feature-settings: "rlig" 1, "calt" 1; }
   --brand-primary-foreground: 0 0% 100%;
   --brand-secondary: 289 61% 60%;
   --brand-secondary-foreground: 0 0% 100%;
+
+  /* ==== Service accent tokens (dark) ==== */
+  --service-m365: var(--brand-primary);
+  --service-power: var(--warning);
+  --service-azure: var(--brand-secondary);
+  --service-dynamics: var(--success);
+  --service-contrast: 0 0% 10%;
 
   /* shadcn-compatible aliases */
   --primary: var(--brand-primary);

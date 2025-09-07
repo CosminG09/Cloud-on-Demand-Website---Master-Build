@@ -1,28 +1,67 @@
-﻿import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-export default function UiDemoPage() {
-  return (
-    <main className="p-8 space-y-6">
-      <h1 className="font-display text-3xl font-semibold">UI Demo</h1>
+﻿// src/app/ui-demo/page.tsx
+import SiteLayout from "@/components/layout/SiteLayout";
+import { Container, Grid, Col } from "@/components/layout/Grid";
+import { HeroSection } from "@/components/sections/HeroSection";
+import { CTASection } from "@/components/sections/CTASection";
+import { CTA } from "@/components/ui/BrandButton";
+import FeatureCard from "@/components/blocks/FeatureCard2";
+import NewsletterInline from "@/components/forms/NewsletterInline";
 
-      <Card className="max-w-md">
-        <CardHeader>
-          <CardTitle>Quick form</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
-            <Input id="email" type="email" placeholder="you@company.ro" />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="name">Name</Label>
-            <Input id="name" type="text" placeholder="First Last" />
-          </div>
-          <Button type="button">Submit</Button>
-        </CardContent>
-      </Card>
-    </main>
+export default function UIDemo() {
+  return (
+    <SiteLayout>
+      <HeroSection
+        title="Platformă modernă pentru IMM-uri"
+        subtitle="Modernizăm operațiunile cu Microsoft 365, Power Platform și Dynamics 365 — rapid, sigur și scalabil."
+        primaryCta={<CTA.Consultatie />}
+        secondaryCta={<CTA.Demo variant="ghost" />}
+      />
+
+      <Container>
+        <Grid>
+          <Col span={4}>
+            <FeatureCard
+              theme="m365"
+              title="Microsoft 365"
+              excerpt="Colaborare și securitate."
+              cta={{ label: "Află mai mult", href: "#" }}
+            />
+          </Col>
+
+          <Col span={4}>
+            <FeatureCard
+              theme="power"
+              title="Power Platform"
+              excerpt="Automatizări și aplicații low-code."
+              cta={{ label: "Află mai mult", href: "#" }}
+            />
+          </Col>
+
+          <Col span={4}>
+            <FeatureCard
+              theme="dynamics"
+              title="Dynamics 365"
+              excerpt="Procese comerciale integrate."
+              cta={{ label: "Află mai mult", href: "#" }}
+            />
+          </Col>
+        </Grid>
+      </Container>
+      <Container className="my-10">
+        <NewsletterInline />
+      </Container>
+
+      <CTASection
+        title="Gata să începem?"
+        copy="Programează o consultație gratuită — evaluăm nevoile și planul de acțiune."
+        actions={
+          <>
+            <CTA.Consultatie />
+            <CTA.ROI variant="ghost" />
+          </>
+        }
+        variant="brand"
+      />
+    </SiteLayout>
   );
 }
