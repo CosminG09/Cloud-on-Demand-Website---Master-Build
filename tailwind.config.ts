@@ -48,6 +48,14 @@ const config: Config = {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
+        service: {
+          m365: "hsl(var(--service-m365))",
+          power: "hsl(var(--service-power))",
+          azure: "hsl(var(--service-azure))",
+          dynamics: "hsl(var(--service-dynamics))",
+          contrast: "hsl(var(--service-contrast))",
+        },
+
 
         // Direct brand access (optional helpers)
         brand: {
